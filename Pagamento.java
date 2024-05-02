@@ -41,6 +41,7 @@ public class Pagamento {
         //System.out.println(vetorNumeroCartao[0] + vetorNumeroCartao[1]);
 
         identificarBandeira();
+        calcularDigitoVerificador();
     }
 
     private static void identificarBandeira() {
@@ -70,26 +71,50 @@ public class Pagamento {
                 }
 
                 if (segundoDigito == 0) {
-                    mensagemBandeira(bandeiras[4]);
+                    mensagemBandeira(bandeiras[3]);
                 } else if (segundoDigito >= 6 && segundoDigito <= 9) {
-                    mensagemBandeira(bandeiras[4]);
+                    mensagemBandeira(bandeiras[3]);
                 }
                 break;
             
             //Maestro
             case 6:
-                mensagemBandeira(bandeiras[4]);
+                mensagemBandeira(bandeiras[3]);
                 break;
         
             //Outra bandeira
             default:
-                mensagemBandeira(bandeiras[5]);
+                mensagemBandeira(bandeiras[4]);
                 break;
         }
     }
 
     private static void mensagemBandeira(String bandeira) {
         System.out.println("Sua bandeira é " + bandeira);
+    }
+
+    private static void calcularDigitoVerificador() {
+        //Passo 1: Multiplicar posições ímpares (a cada duas casas) por 2
+        int[] passo1 = new int[8];
+
+        for(int i = 0, j = 0; i < 16; i++, j = j + 2) {
+            passo1[i] = vetorNumeroCartao[j] * 2;
+            
+            //Verificar se está funcionando
+            System.out.println(passo1[i]);
+        } 
+
+        //Passo 2: Se o resultado der um número de dois dígitos, some-os
+        int tamanhoPasso2;
+        String stringToInt;
+        int[] passo2 = new int[tamanhoPasso2];
+
+        for(int i = 0; i < 8; i++) {
+            if (passo1[i] > 9) {
+                stringToInt = "" + passo1[i];
+                
+            }
+        }
     }
 
     public void getSolicitarCartao() {
